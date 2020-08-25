@@ -1,0 +1,53 @@
+@model Activityy
+
+<div class="jumbotron size-5">
+    <h1 class="display-5">Dojo Activity Center</h1>
+
+        <p>Welcome @ViewBag.User.FirstName</p>
+
+</div>
+
+
+<div class="alert alert-info">
+    <a href="/logout">Logout</a> | 
+    <a href="/dashboard">Home</a>
+</div>
+
+
+@if(Model.Organizer.UserId != Model.UserId)
+    {
+        <a class="btn btn-warning btn-sm" href="/activity/@Model.ActivityyID/delete">Cancel</a>
+    }
+else
+    {
+    @if(Model.Guests.Any( w => w.UserID != Model.UserId))
+        {
+            <a class="btn btn-outline-dark btn-sm" href="/activity/@Model.ActivityyID/leave" >Leave</a>
+        }
+    else
+        {
+            <a class="btn btn-outline-dark btn-sm" href="/activity/@Model.ActivityyID/rsvp">Join</a>
+        }
+    }
+
+<h1>
+    @Model.Title 
+</h1>
+
+
+<h3>
+    Event Coordinator: @Model.Organizer.FirstName
+</h3>
+
+<h4>
+    Description: @Model.Description
+</h4>
+Participants:
+
+<ul>
+    @foreach (var g in @Model.Guests)
+    {
+        <li>@g.Guest.FirstName @g.Guest.LastName</li>
+    }
+</ul>
+

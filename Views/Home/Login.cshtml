@@ -1,0 +1,18 @@
+@model Login
+
+    <form asp-action="Login" method="post" class="">
+        <div class="">            
+            <label asp-for="LoginEmail"></label>
+            <input asp-for="LoginEmail" class="form-control">
+            <span asp-validation-for="LoginEmail" class="text-danger"></span>
+        </div>
+            <div class="">            
+            <label asp-for="LoginPassword"></label>
+            <input asp-for="LoginPassword" class="form-control">
+            <span asp-validation-for="LoginPassword" class="text-danger"></span>
+        </div>
+            <br>
+            <input type="submit" value="Login" class="btn btn-outline-secondary">
+            
+        </div>
+    </form>

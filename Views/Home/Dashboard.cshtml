@@ -1,0 +1,66 @@
+@model List<Activityy>
+
+<div class="jumbotron size-5">
+    <h1 class="display-5">Dojo Activity Center</h1>
+    @foreach (Activityy a in @Model)
+    {
+        @if(a.Organizer.UserId == ViewBag.User.UserId)
+            {
+                <p>Welcome @a.Organizer.FirstName</p>
+            }
+    }
+</div>
+
+
+<div class="alert alert-info">
+    <a href="/logout">Logout</a>
+</div>
+
+
+<table class="table table-hover">
+
+        
+
+    <tr>
+        <th>Activity</th>
+        <th>Date and Time</th>
+        <th>Duration</th>
+        <th>Event Coordinator</th>
+        <th># of Participants</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (Activityy a in @Model)
+    {
+        <tr>
+            <td><a href="/activity/@a.ActivityyID">@a.Title</a></td>
+            @* <td>@a.Date</td> *@
+            <td>@a.Date at @a.Time</td>
+            <td>@a.Duration</td>
+            <td>@a.Organizer.FirstName</td>
+            <td>@a.Guests.Count</td>
+            <td>
+                @if(a.Organizer.UserId == ViewBag.User.UserId)
+                    {
+                        <a class="btn btn-warning btn-sm" href="/activity/@a.ActivityyID/delete">Cancel</a>
+                    }
+                else
+                    {
+                        @if(a.Guests.Any( w => w.UserID == ViewBag.User.UserId))
+                            {
+                                <a class="btn btn-outline-dark btn-sm" href="/activity/@a.ActivityyID/leave" >Leave</a>
+                            }
+                        else
+                            {
+                                <a class="btn btn-outline-dark btn-sm" href="/activity/@a.ActivityyID/rsvp">Join</a>
+                            }
+                    }    
+            </td>
+        </tr>
+    }
+</table>
+
+
+<p>
+    <a href="new/activity">New Activity</a>
+</p>
